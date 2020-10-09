@@ -20,23 +20,19 @@ import {
   PasswordForgot,
   Dashboard,
   Profile,
-  NotFound
+  NotFound,
 } from "./components/pages";
 export function App() {
   const appState = useContext(store);
   const { state } = appState;
-  const SecuredRoute = ({ component: Component, ...rest }) => (
-    <RouteWithLayout
-      {...rest}
-      render={(props) =>
-        state.user.authenticated === true ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/login" />
-        )
-      }
-    />
-  );
+  const SecuredRoute = (props) => {
+    const { children, ...rest } = props;
+    return state.user.authenticated === true ? (
+      <RouteWithLayout {...rest}> {children} </RouteWithLayout>
+    ) : (
+      <Redirect to="/login" {...props} />
+    );
+  };
   return (
     <BrowserRouter>
       <Switch>
@@ -51,6 +47,7 @@ export function App() {
               : MainLayout
           }
         >
+          {" "}
           {state.user.authenticated ? (
             state.user.role === "Admin" ? (
               <AdminPage />
@@ -66,7 +63,7 @@ export function App() {
         <Route
           path="/login/:notify?"
           render={(props) => {
-            console.log(state.user.authenticated)
+            console.log(state.user.authenticated);
             return state.user.authenticated === true ? (
               <Redirect to="/" />
             ) : (
@@ -77,8 +74,32 @@ export function App() {
         <Route path="/password/reset/:token" component={PasswordReset} />
         <Route path="/password/forgot" component={PasswordForgot} />
 
-        <SecuredRoute path="/dashboard" component={Dashboard} />
-        <SecuredRoute path="/profile" component={Profile} />
+        <SecuredRoute
+          path="/dashboard"
+          exact
+          layout={
+            state.user.authenticated
+              ? state.user.role === "Admin"
+                ? AdminLayout
+                : UserLayout
+              : MainLayout
+          }
+        >
+          <Dashboard />
+        </SecuredRoute>
+        <SecuredRoute
+          path="/profile"
+          exact
+          layout={
+            state.user.authenticated
+              ? state.user.role === "Admin"
+                ? AdminLayout
+                : UserLayout
+              : MainLayout
+          }
+        >
+          <Profile />
+        </SecuredRoute>
         <Route component={NotFound} />
       </Switch>
     </BrowserRouter>

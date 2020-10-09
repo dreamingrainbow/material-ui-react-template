@@ -39,7 +39,7 @@ export function QuickAccessLinks() {
               size="small"
               color="inherit"
               style={{ marginTop: "10px" }}
-              to="/home"
+              to="/"
             >
               Home
             </Link>

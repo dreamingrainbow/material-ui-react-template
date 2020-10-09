@@ -6,10 +6,16 @@
  * @version 0.0.1
  */
 export const initialState = {
+  appMenu: {
+    isOpen: false,
+  },
+  sidebar: {
+    isOpen: false,
+  },
   user: {
     authenticated: false,
     role: "Guest",
   },
 };
 export { store } from "./store";
-export { StateProvider } from "./store"
+export { StateProvider } from "./store";

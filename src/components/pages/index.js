@@ -1,1 +1,10 @@
-export { DefaultPage } from "./DefaultPage";
+export { DefaultPage } from "./common/DefaultPage";
+export { AdminPage } from "./user/admin/AdminPage";
+export { UserPage } from "./user/member/UserPage";
+export { Register } from "./common/Register";
+export { Login } from "./common/Login";
+export { PasswordReset } from "./common/PasswordReset";
+export { PasswordForgot } from "./common/PasswordForgot";
+export { Dashboard } from "./common/Dashboard";
+export { Profile } from "./common/Profile";
+export { NotFound } from "./common/NotFound";

@@ -18,7 +18,7 @@ import {
   Login,
   PasswordReset,
   PasswordForgot,
-  Dashboard,
+  DashboardPage,
   Profile,
   NotFound,
 } from "./components/pages";
@@ -65,7 +65,7 @@ export function App() {
           render={(props) => {
             console.log(state.user.authenticated);
             return state.user.authenticated === true ? (
-              <Redirect to="/" />
+              <Redirect to="/Dashboard" />
             ) : (
               <Login {...props} />
             );
@@ -85,7 +85,7 @@ export function App() {
               : MainLayout
           }
         >
-          <Dashboard />
+          <DashboardPage />
         </SecuredRoute>
         <SecuredRoute
           path="/profile"
@@ -100,7 +100,17 @@ export function App() {
         >
           <Profile />
         </SecuredRoute>
-        <Route component={NotFound} />
+        <RouteWithLayout
+          layout={
+            state.user.authenticated
+              ? state.user.role === "Admin"
+                ? AdminLayout
+                : UserLayout
+              : MainLayout
+          }
+        >
+          <NotFound />
+        </RouteWithLayout>
       </Switch>
     </BrowserRouter>
   );

@@ -8,7 +8,6 @@
 import { fade, makeStyles } from "@material-ui/core/styles";
 const drawerWidth = 240;
 const style = theme => {
-  console.log("I 9", theme);
   return {
     grow: {
       flexGrow: 1

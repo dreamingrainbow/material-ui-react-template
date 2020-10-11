@@ -7,4 +7,11 @@
  */
 export { ThemeLoader } from "./theme-loader";
 export { useStyles } from "./use-styles";
-export { Header, Footer, Sidebar } from "./sections";
+export {
+  Copyright,
+  Footer,
+  Header,
+  QuickAccessLinks,
+  Sidebar,
+  SideView,
+} from "./sections";

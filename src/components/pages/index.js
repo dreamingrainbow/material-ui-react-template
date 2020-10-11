@@ -1,10 +1,12 @@
-export { DefaultPage } from "./common/DefaultPage";
-export { AdminPage } from "./user/admin/AdminPage";
-export { UserPage } from "./user/member/UserPage";
-export { Register } from "./common/Register";
-export { Login } from "./common/Login";
-export { PasswordReset } from "./common/PasswordReset";
-export { PasswordForgot } from "./common/PasswordForgot";
-export { DashboardPage } from "./common/DashboardPage";
-export { Profile } from "./common/Profile";
-export { NotFound } from "./common/NotFound";
+export {
+  DefaultPage,
+  Register,
+  Login,
+  PasswordReset,
+  PasswordForgot,
+  DashboardPage,
+  Profile,
+  NotFound,
+  ContactUs,
+} from "./common";
+export { AdminPage, UserPage } from "./user";

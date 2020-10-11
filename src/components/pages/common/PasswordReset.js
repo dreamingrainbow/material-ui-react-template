@@ -18,8 +18,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import { Copyright } from "../../common/sections/Copyright";
-import SignInSide from "./SignInSide";
+import { Copyright, SideView } from "../../common/sections";
 
 export const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,7 +58,7 @@ function PasswordReset(props) {
   const { state, dispatch } = appState;
   const classes = useStyles(state.activeTheme);
   return (
-    <SignInSide>
+    <SideView image="url(https://placehold.it/600x800)">
       <Avatar className={classes.avatar}>
         <LockOutlinedIcon />
       </Avatar>
@@ -128,7 +127,7 @@ function PasswordReset(props) {
           <Copyright />
         </Box>
       </form>
-    </SignInSide>
+    </SideView>
   );
 }
 

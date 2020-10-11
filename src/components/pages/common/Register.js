@@ -6,35 +6,21 @@
  * @version 0.0.1
  */
 import React, { useContext } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { store } from "../../../initial-state";
-import { Button } from "@material-ui/core";
+import { Button, Box } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
-import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import { Copyright } from "../../common/sections/Copyright";
-import SignInSide from "./SignInSide";
+import { Copyright, SideView} from "../../common/sections";
 
 export const useStyles = makeStyles((theme) => ({
-  root: {
-    height: "100vh",
-  },
-  image: {
-    backgroundImage: "url(https://placehold.it/600x800)",
-    backgroundRepeat: "no-repeat",
-    backgroundColor:
-      theme.palette.type === "light"
-        ? theme.palette.grey[50]
-        : theme.palette.grey[900],
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  },
   paper: {
     //margin: theme.spacing(8, 4),
     display: "flex",
@@ -42,94 +28,116 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   avatar: {
-    margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(1, 0, 2),
   },
 }));
 
 function Register(props) {
-  const appState = useContext(store);
-  const { state, dispatch } = appState;
-  const classes = useStyles(state.activeTheme);
   return (
-    <SignInSide>
+    <SideView image="url(https://placehold.it/600x800)">
+      <SignUp />
+    </SideView>
+  );
+}
+
+export { Register };
+
+export default function SignUp(props) {
+  const appState = useContext(store);
+  const { state } = appState;
+  const classes = useStyles(state.activeTheme);
+
+  return (
+    <React.Fragment>
       <Avatar className={classes.avatar}>
         <LockOutlinedIcon />
       </Avatar>
-      <Typography component="h1" variant="h5">
-        Sign in
+      <Typography component="h1" variant="h6">
+        Register
       </Typography>
       <form className={classes.form} noValidate align="left">
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          id="email"
-          label="Email Address"
-          name="email"
-          autoComplete="email"
-          autoFocus
-        />
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          name="password"
-          label="Password"
-          type="password"
-          id="password"
-          autoComplete="current-password"
-        />
-        <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
-          label="Remember me"
-        />
+        <Grid container spacing={1}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+            size="small"
+              autoComplete="fname"
+              name="firstName"
+              required
+              fullWidth
+              id="firstName"
+              label="First Name"
+              autoFocus
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              size="small"
+              fullWidth
+              id="lastName"
+              label="Last Name"
+              name="lastName"
+              autoComplete="lname"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              size="small"
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              size="small"
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <FormControlLabel
+              control={<Checkbox value="allowExtraEmails" color="primary" size="small" />}
+              label="I want to receive promotions and updates."
+            />
+          </Grid>
+        </Grid>
         <Button
+            size="small"
           type="submit"
           fullWidth
           variant="contained"
           color="primary"
           className={classes.submit}
-          onClick={async (e) => {
-            e.preventDefault();
-            async function authorize(dispatch) {
-              dispatch({
-                type: "authenticated",
-                payload: !state.user.authenticated,
-              });
-            }
-            await authorize(dispatch);
-          }}
         >
-          Sign In
+          Register
         </Button>
-        <Grid container align="left">
-          <Grid item xs>
-            <Link href="#" variant="body2">
-              Forgot password?
-            </Link>
-          </Grid>
+        <Grid container justify="flex-end">
           <Grid item>
-            <Link href="#" variant="body2">
-              {"Don't have an account? Sign Up"}
+            <Link to="/login" variant="body2" component={RouterLink}>
+              Already have an account? Log in
             </Link>
           </Grid>
         </Grid>
-        <Box mt={5}>
-          <Copyright />
-        </Box>
       </form>
-    </SignInSide>
+      <Box mt={1}>
+        <Copyright />
+        <RouterLink to="/">Home</RouterLink>
+      </Box>
+    </React.Fragment>
   );
 }
-
-export { Register };

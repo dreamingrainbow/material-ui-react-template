@@ -75,7 +75,15 @@ export function QuickAccessLinks() {
           <ListItem className={classes.listItemTitle}>
             <b>Extra</b>
           </ListItem>
-          <ListItem className={classes.listItem}>Post</ListItem>
+          <ListItem className={classes.listItem}><Link
+              component={RouterLink}
+              size="small"
+              color="inherit"
+              style={{ marginTop: "10px" }}
+              to="/blog"
+            >
+              Blog
+            </Link></ListItem>
           <ListItem className={classes.listItem}>
             <Link
               component={RouterLink}
@@ -190,7 +198,7 @@ export function QuickAccessLinks() {
                 size="small"
                 color="inherit"
                 style={{ marginTop: "10px" }}
-                to="/forgot-password"
+                to="/password/forgot"
               >
                 Forgot Password
               </Link>

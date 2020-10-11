@@ -21,18 +21,12 @@ import {
   DashboardPage,
   Profile,
   NotFound,
+  ContactUs,
 } from "./components/pages";
+import { SecuredRoute } from "./SecuredRoute";
 export function App() {
   const appState = useContext(store);
   const { state } = appState;
-  const SecuredRoute = (props) => {
-    const { children, ...rest } = props;
-    return state.user.authenticated === true ? (
-      <RouteWithLayout {...rest}> {children} </RouteWithLayout>
-    ) : (
-      <Redirect to="/login" {...props} />
-    );
-  };
   return (
     <BrowserRouter>
       <Switch>
@@ -47,7 +41,6 @@ export function App() {
               : MainLayout
           }
         >
-          {" "}
           {state.user.authenticated ? (
             state.user.role === "Admin" ? (
               <AdminPage />
@@ -59,7 +52,6 @@ export function App() {
           )}
         </RouteWithLayout>
         <Route path="/register" component={Register} />
-
         <Route
           path="/login/:notify?"
           render={(props) => {
@@ -73,7 +65,7 @@ export function App() {
         />
         <Route path="/password/reset/:token" component={PasswordReset} />
         <Route path="/password/forgot" component={PasswordForgot} />
-
+        <Route path="/contact-us" component={ContactUs} />
         <SecuredRoute
           path="/dashboard"
           exact
@@ -115,3 +107,4 @@ export function App() {
     </BrowserRouter>
   );
 }
+

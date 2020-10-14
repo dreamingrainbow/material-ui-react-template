@@ -4,3 +4,4 @@ export { Header } from "./Header";
 export { QuickAccessLinks } from "./QuickAccessLinks";
 export { Sidebar } from "./Sidebar";
 export { SideView } from "./SideView";
+export { Blog } from "./blog";

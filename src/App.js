@@ -24,6 +24,7 @@ import {
   ContactUs,
 } from "./components/pages";
 import { SecuredRoute } from "./SecuredRoute";
+import { Blog } from "./components/common/sections";
 export function App() {
   const appState = useContext(store);
   const { state } = appState;
@@ -51,11 +52,11 @@ export function App() {
             <DefaultPage />
           )}
         </RouteWithLayout>
+
         <Route path="/register" component={Register} />
         <Route
           path="/login/:notify?"
           render={(props) => {
-            console.log(state.user.authenticated);
             return state.user.authenticated === true ? (
               <Redirect to="/Dashboard" />
             ) : (
@@ -64,8 +65,109 @@ export function App() {
           }}
         />
         <Route path="/password/reset/:token" component={PasswordReset} />
-        <Route path="/password/forgot" component={PasswordForgot} />
-        <Route path="/contact-us" component={ContactUs} />
+        <Route path="/password/forgot" component={PasswordForgot} exact />
+        <Route path="/contact-us" component={ContactUs} exact />
+        <Route path="/blog/:username/postId/:postId" component={Blog} exact />
+        <Route path="/blog/:username/posts/:postName" component={Blog} exact />
+
+        <RouteWithLayout
+          path="/investor-information"
+          exact
+          layout={
+            state.user.authenticated
+              ? state.user.role === "Admin"
+                ? AdminLayout
+                : UserLayout
+              : MainLayout
+          }
+        >
+          <DefaultPage />
+        </RouteWithLayout>
+
+        <RouteWithLayout
+          path="/policies"
+          layout={
+            state.user.authenticated
+              ? state.user.role === "Admin"
+                ? AdminLayout
+                : UserLayout
+              : MainLayout
+          }
+          exact
+        >
+          <DefaultPage />
+        </RouteWithLayout>
+
+        <RouteWithLayout
+          path="/highlights"
+          layout={
+            state.user.authenticated
+              ? state.user.role === "Admin"
+                ? AdminLayout
+                : UserLayout
+              : MainLayout
+          }
+          exact
+        >
+          <DefaultPage />
+        </RouteWithLayout>
+
+        <RouteWithLayout
+          path="/newsletter"
+          layout={
+            state.user.authenticated
+              ? state.user.role === "Admin"
+                ? AdminLayout
+                : UserLayout
+              : MainLayout
+          }
+          exact
+        >
+          <DefaultPage />
+        </RouteWithLayout>
+
+        <RouteWithLayout
+          path="/faq"
+          layout={
+            state.user.authenticated
+              ? state.user.role === "Admin"
+                ? AdminLayout
+                : UserLayout
+              : MainLayout
+          }
+          exact
+        >
+          <DefaultPage />
+        </RouteWithLayout>
+
+        <RouteWithLayout
+          path="/search"
+          layout={
+            state.user.authenticated
+              ? state.user.role === "Admin"
+                ? AdminLayout
+                : UserLayout
+              : MainLayout
+          }
+          exact
+        >
+          <DefaultPage />
+        </RouteWithLayout>
+
+        <RouteWithLayout
+          path="/highlights"
+          layout={
+            state.user.authenticated
+              ? state.user.role === "Admin"
+                ? AdminLayout
+                : UserLayout
+              : MainLayout
+          }
+          exact
+        >
+          <DefaultPage />
+        </RouteWithLayout>
+
         <SecuredRoute
           path="/dashboard"
           exact
@@ -79,6 +181,7 @@ export function App() {
         >
           <DashboardPage />
         </SecuredRoute>
+
         <SecuredRoute
           path="/profile"
           exact
@@ -92,6 +195,21 @@ export function App() {
         >
           <Profile />
         </SecuredRoute>
+
+        <SecuredRoute
+          path="/my-account"
+          exact
+          layout={
+            state.user.authenticated
+              ? state.user.role === "Admin"
+                ? AdminLayout
+                : UserLayout
+              : MainLayout
+          }
+        >
+          <UserPage />
+        </SecuredRoute>
+        
         <RouteWithLayout
           layout={
             state.user.authenticated
@@ -107,4 +225,3 @@ export function App() {
     </BrowserRouter>
   );
 }
-

@@ -6,7 +6,7 @@
  * @version 0.0.1
  */
 import React from "react";
-import {Link as RouterLink} from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -149,6 +149,10 @@ export default function ProminentAppBar() {
                 input: classes.inputInput,
               }}
               inputProps={{ "aria-label": "search" }}
+              onChange={(evt) => {
+                evt.preventDefault();
+                alert("Searching...");
+              }}
             />
           </div>
           {state.user.authenticated && (
@@ -177,8 +181,12 @@ export default function ProminentAppBar() {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem component={RouterLink} to="/profile" onClick={handleClose}>
+                  Profile
+                </MenuItem>
+                <MenuItem component={RouterLink} to="/my-account" onClick={handleClose}>
+                  My account
+                </MenuItem>
               </Menu>
             </div>
           )}

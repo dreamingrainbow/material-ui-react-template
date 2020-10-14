@@ -22,7 +22,7 @@ export function Footer(props) {
   return (
     <div className={classes.footer}>
       <Typography variant="h6" align="center">
-        {process.env.REACT_APP_COPYRIGHT}
+        {process.env.REACT_APP_COPYRIGHT} {process.env.REACT_APP_COMPANY} 
       </Typography>
     </div>
   );

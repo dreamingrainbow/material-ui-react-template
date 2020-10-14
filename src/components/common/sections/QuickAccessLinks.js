@@ -26,6 +26,11 @@ export function QuickAccessLinks() {
   const appState = React.useContext(store);
   const { state } = appState;
   const classes = useStyles();
+  const username =
+    state.user.username === null || state.user.username === undefined
+      ? `~${process.env.REACT_APP_USERNAME}`
+      : "~" + state.user.username;
+  const latestPost = 1;
   return (
     <Grid container padding={2} className={classes.container}>
       <Grid item xs={12} md={3}>
@@ -75,15 +80,17 @@ export function QuickAccessLinks() {
           <ListItem className={classes.listItemTitle}>
             <b>Extra</b>
           </ListItem>
-          <ListItem className={classes.listItem}><Link
+          <ListItem className={classes.listItem}>
+            <Link
               component={RouterLink}
               size="small"
               color="inherit"
               style={{ marginTop: "10px" }}
-              to="/blog"
+              to={`/blog/${username}/PostId/${latestPost}`}
             >
               Blog
-            </Link></ListItem>
+            </Link>
+          </ListItem>
           <ListItem className={classes.listItem}>
             <Link
               component={RouterLink}
@@ -165,7 +172,8 @@ export function QuickAccessLinks() {
                 Profile
               </Link>
             </ListItem>
-          )}{state.user.authenticated && (
+          )}
+          {state.user.authenticated && (
             <ListItem className={classes.listItem}>
               <Link
                 component={RouterLink}

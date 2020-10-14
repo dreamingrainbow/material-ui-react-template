@@ -91,23 +91,7 @@ export function Dashboard(props) {
 
   return (
     <div className={classes.root}>
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={toggleDrawer}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <List>{mainListItems}</List>
-        <Divider />
-        <List>{secondaryListItems}</List>
-      </Drawer>
+      <DashboardSidebar classes={classes} open={open} toggleDrawer={toggleDrawer} />
       <main className={classes.content}>
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
@@ -135,3 +119,24 @@ export function Dashboard(props) {
     </div>
   );
 }
+
+function DashboardSidebar ({classes, open, toggleDrawer}) {
+  return <Drawer
+    variant="permanent"
+    classes={{
+      paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+    }}
+    open={open}
+  >
+    <div className={classes.toolbarIcon}>
+      <IconButton onClick={toggleDrawer}>
+        <ChevronLeftIcon />
+      </IconButton>
+    </div>
+    <Divider />
+    <List>{mainListItems}</List>
+    <Divider />
+    <List>{secondaryListItems}</List>
+  </Drawer>;
+}
+
